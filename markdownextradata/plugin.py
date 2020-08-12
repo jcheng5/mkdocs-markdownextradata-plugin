@@ -93,3 +93,9 @@ class MarkdownExtraDataPlugin(BasePlugin):
         context.update(config.get("extra", {}))
         md_template = Template(markdown)
         return md_template.render(**config.get("extra"))
+
+    def on_page_content(self, html, config, **kwargs):
+        context = {key: config.get(key) for key in CONFIG_KEYS if key in config}
+        context.update(config.get("extra", {}))
+        html_template = Template(html)
+        return html_template.render(**config.get("extra"))
